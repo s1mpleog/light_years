@@ -1,3 +1,27 @@
 add_executable(${LIGHT_YEARS_GAME_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/framework/Application.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/framework/Application.cpp
 )
+
+target_include_directories(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-graphics)
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-window)
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-system)
+target_link_libraries(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC sfml-audio)
+
+
+# smfl dll stuffs for opening window only for windows os
+#..........................................................
+#function(CopyLibToTarget LIB_NAME TARGET_NAME)
+#add_custom_command( TARGET ${TARGET_NAME}
+#     POST_BUILD
+#     COMMAND
+#     ${CMAKE_COMMAND} -E copy if_different
+#     $<TARGET_FILE: ${LIB_NAME}>
+#     $<TARGET_FILE_DIR: ${TARGET_NAME}>
+#)
+#endfunction()
