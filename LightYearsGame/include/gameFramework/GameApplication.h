@@ -7,7 +7,7 @@ namespace ly {
     class GameApplication : public Application {
        public:
         GameApplication();
-        virtual void Tick(float deltaTime) override;
+        void Tick(float deltaTime) override;
 
        private:
         float m_Counter;

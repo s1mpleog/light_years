@@ -6,7 +6,8 @@ namespace ly {
     class World;
     class Application {
        public:
-        Application();
+        Application(unsigned int windowWidth, unsigned int windowHeight,
+                    const std::string& windowTitle, sf::Uint32 windowStyle);
         void Run();
 
         template <typename WorldType>

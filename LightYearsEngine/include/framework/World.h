@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "framework/Core.h"
 
 namespace ly {
@@ -6,10 +7,11 @@ namespace ly {
     class Actor;
     class World {
        public:
-        World(Application* owningApp);
+        explicit World(Application* owningApp);
 
         void BeginPlayInternal();
         void TickInternal(float deltaTime);
+		    void Render(sf::RenderWindow& window);
 
         virtual ~World();
 
@@ -17,8 +19,8 @@ namespace ly {
         weak<ActorType> SpawnActor();
 
        private:
-        void BeginPlay();
-        void Tick(float deltaTime);
+        static void BeginPlay();
+        static void Tick(float deltaTime);
         Application* m_owningApp;
         bool m_beginPlay;
 

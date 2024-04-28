@@ -3,12 +3,14 @@
 #include "framework/World.h"
 
 namespace ly {
-    Application::Application()
-        : m_Window{sf::VideoMode(750, 750), "Light Years"},
-          m_TargetFrameRate{60.f},
-          m_TickClock{},
-          currentWorld{nullptr} {
-    }
+    Application::Application(unsigned int windowWidth, unsigned int windowHeight, const std::string &windowTitle,
+                             sf::Uint32 windowStyle) :
+                             m_Window{sf::VideoMode(windowWidth, windowHeight),
+                                      windowTitle, windowStyle},
+                             m_TargetFrameRate{60.f},
+                             m_TickClock{},
+                             currentWorld{nullptr}  {
+    };
 
     void Application::Run() {
         m_TickClock.restart();
@@ -16,7 +18,7 @@ namespace ly {
         float accumulatedTime = 0;
         float targetDeltaTime = 1.f / m_TargetFrameRate;
         while (m_Window.isOpen()) {
-            sf::Event windowEvent;
+            sf::Event windowEvent{};
             while (m_Window.pollEvent(windowEvent)) {
                 if (windowEvent.type == sf::Event::EventType::Closed) {
                     m_Window.close();
@@ -30,6 +32,7 @@ namespace ly {
             }
         }
     };
+
     void Application::TickInternal(float deltaTime) {
         Tick(deltaTime);
 
@@ -46,14 +49,12 @@ namespace ly {
     };
 
     void Application::Render() {
-        sf::RectangleShape rect{sf::Vector2f{100, 100}};
-        rect.setFillColor(sf::Color::Green);
-        rect.setPosition(m_Window.getSize().x / 2, m_Window.getSize().y / 2);
-        rect.setOrigin(rect.getSize() / 2.0f);
-
-        m_Window.draw(rect);
+        if(currentWorld) {
+			    currentWorld->Render(m_Window);
+		    }
     };
 
     void Application::Tick(float deltaTime) {
     }
+
 };  // namespace ly

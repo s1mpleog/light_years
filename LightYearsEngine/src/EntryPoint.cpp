@@ -1,7 +1,7 @@
 #include "EntryPoint.h"
 #include "framework/Application.h"
 
-int main(void) {
+int main() {
     ly::Application* app = GetApplication();
     app->Run();
 

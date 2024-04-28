@@ -17,7 +17,7 @@ namespace ly {
     }
 
     void World::TickInternal(float deltaTime) {
-        for (shared<Actor> actor : m_pendingActors) {
+        for (const shared<Actor>& actor : m_pendingActors) {
             m_actors.push_back(actor);
             actor->BeginPlayInternal();
         };
@@ -27,7 +27,7 @@ namespace ly {
             if (iter->get()->IsPendingDestroy()) {
                 iter = m_actors.erase(iter);
             } else {
-                iter->get()->Tick(deltaTime);
+                iter->get()->TickInternal(deltaTime);
                 ++iter;
             }
         }
@@ -35,7 +35,7 @@ namespace ly {
         Tick(deltaTime);
     };
 
-    World::~World(){};
+    World::~World()= default;
 
     void World::BeginPlay() {
         LOG("Began play");
@@ -44,5 +44,11 @@ namespace ly {
     void World::Tick(float deltaTime) {
         LOG("Tick at framerate %.2f", 1.f / deltaTime);
     };
+
+	  void World::Render(sf::RenderWindow &window) {
+				for(auto& actor : m_actors) {
+			    actor->Render(window);
+		    }
+	  };
 
 }  // namespace ly
