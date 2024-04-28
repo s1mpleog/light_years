@@ -6,6 +6,10 @@ namespace ly {
         : m_owningWord{owningWorld},
           m_beginPlay{false} {}
 
+    Actor::~Actor() {
+        LOG("actor destroyed");
+    };
+
     void Actor::BeginPlayInternal() {
         if (!m_beginPlay) {
             m_beginPlay = true;

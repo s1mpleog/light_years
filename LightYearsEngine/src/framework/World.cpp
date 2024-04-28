@@ -23,9 +23,14 @@ namespace ly {
         };
         m_pendingActors.clear();
 
-        for (shared<Actor> actor : m_actors) {
-            actor->Tick(deltaTime);
-        };
+        for (auto iter = m_actors.begin(); iter != m_actors.end();) {
+            if (iter->get()->IsPendingDestroy()) {
+                iter = m_actors.erase(iter);
+            } else {
+                iter->get()->Tick(deltaTime);
+                ++iter;
+            }
+        }
 
         Tick(deltaTime);
     };
