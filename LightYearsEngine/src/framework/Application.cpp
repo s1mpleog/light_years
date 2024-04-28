@@ -1,4 +1,3 @@
-#include <iostream>
 #include "framework/Application.h"
 #include "framework/Core.h"
 #include "framework/World.h"
@@ -13,6 +12,7 @@ namespace ly {
 
     void Application::Run() {
         m_TickClock.restart();
+        int x = 12;
         float accumulatedTime = 0;
         float targetDeltaTime = 1.f / m_TargetFrameRate;
         while (m_Window.isOpen()) {
